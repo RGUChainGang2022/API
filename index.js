@@ -1,11 +1,11 @@
 import GetCarbonData from "./getCarbonData.js";
 import getFutureEnergyData from "./getSolarWindData.js";
-
+import SendLoad from "./SendLoad.js";
 
 const PackageData = async () => {
   let CarbonData = await GetCarbonData();
   let SolarWindData = await getFutureEnergyData();
-  
+
   let dataPacket = {
     TimeStamp: new Date(),
     data: {
@@ -38,7 +38,14 @@ const PackageData = async () => {
       },
     },
   };
+
+  return dataPacket;
 };
 
-PackageData();
-setInterval(() => {PackageData();}, 1800000);
+(async () => {
+  SendLoad(await PackageData());
+})();
+
+setInterval(async () => {
+  SendLoad(await PackageData());
+}, 1800000);

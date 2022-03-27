@@ -1,0 +1,32 @@
+{
+"timestamp": "2022-03-27T08:30:00",
+"data": {
+    "CarbonIntensityData": {
+        "TimeStamp" : "2022-03-27T08:30:00", 
+        "East Midlands": 459, 
+        "East England": 230, 
+        "West Midlands": 321, 
+        "North Scotland": 274, 
+        "South Scotland": 82, 
+        "South West England": 138, 
+        "North Wales and Merseyside": "117", 
+        "North East England": "15", 
+        "South East England": "158", 
+        "South Wales": "341", 
+        "North West England": "120", 
+        "Yorkshire": "230", 
+        "London": "184", 
+        "South England": "239"  
+    },
+    "Solar": {
+        "TimeStamp": "2022-03-27T08:00:00",
+        "Solar_Forecast": "1516", 
+        "Solar_Capacity": "13082" 
+    },
+    "Wind": {
+        "TimeStamp": "2022-03-27T08:00:00",
+        "Wind_Forecast": "636", 
+        "Wind_Capacity": "6545" 
+    }
+}
+}

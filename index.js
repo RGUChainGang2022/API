@@ -1,21 +1,44 @@
-import axios from "axios";
+import GetCarbonData from "./getCarbonData.js";
+import getFutureEnergyData from "./getSolarWindData.js";
 
-function GetNGData(response) {
-  // Gets Carbon Data And Returns without Axios Fetch Data
 
-  axios({
-    method: "get",
-    url: `https://data.nationalgrideso.com/api/3/action/datastore_search_sql?sql=SELECT * from "c16b0e19-c02a-44a8-ba05-4db2c0545a2a" LIMIT 5`, // Entire Api Route
-    headers: { Accept: "application/json" },
-    responseType: "json", // Expected Response Format
-  })
-    .then((Res) => {
-      //console.log(Res.data.result.records[0]);
-      response.send(Res.data.result.records[0]); // Returns All Data From API without Axios Data
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
+const PackageData = async () => {
+  let CarbonData = await GetCarbonData();
+  let SolarWindData = await getFutureEnergyData();
+  
+  let dataPacket = {
+    TimeStamp: new Date(),
+    data: {
+      CarbonIntensityData: {
+        TimeStamp: CarbonData["datetime"],
+        "East Midlands": CarbonData["East Midlands"],
+        "East England": CarbonData["East England"],
+        "West Midlands": CarbonData["West Midlands"],
+        "North Scotland": CarbonData["North Scotland"],
+        "South Scotland": CarbonData["South Scotland"],
+        "South West England": CarbonData["South West England"],
+        "North Wales and Merseyside": CarbonData["North Wales and Merseyside"],
+        "North East England": CarbonData["North East England"],
+        "South East England": CarbonData["South East England"],
+        "South Wales": CarbonData["South Wales"],
+        "North West England": CarbonData["North West England"],
+        Yorkshire: CarbonData["Yorkshire"],
+        London: CarbonData["London"],
+        "South England": CarbonData["South England"],
+      },
+      Solar: {
+        TimeStamp: SolarWindData["TIME_GMT"],
+        Solar_Forecast: SolarWindData["EMBEDDED_WIND_FORECAST"],
+        Solar_Capacity: SolarWindData["EMBEDDED_WIND_CAPACITY"],
+      },
+      Wind: {
+        TimeStamp: SolarWindData["TIME_GMT"],
+        Wind_Forecast: SolarWindData["EMBEDDED_WIND_FORECAST"],
+        Wind_Capacity: SolarWindData["EMBEDDED_WIND_CAPACITY"],
+      },
+    },
+  };
+};
 
-export default GetNGData;
+PackageData();
+setInterval(() => {PackageData();}, 1800000);

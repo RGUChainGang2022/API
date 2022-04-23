@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GetSettlementDate, GetSettlementPeriod } from "./GetCurrentDate.js";
+import {GetSettlementDate, GetSettlementPeriod } from "./GetCurrentDate.js";
 const ResourceID = "db6c038f-98af-4570-ab60-24d71ebd0ae5";
 
 /**
@@ -8,15 +8,19 @@ const ResourceID = "db6c038f-98af-4570-ab60-24d71ebd0ae5";
  */
 export default function GetCarbonData() {
   // Gets Carbon Data And Returns without Axios Fetch Data
+  let SettlementDate = `${GetSettlementDate()}T00:00:00`;
+  let SettlementPeriod = (GetSettlementPeriod());
+  // console.log(`https://data.nationalgrideso.com/api/3/action/datastore_search_sql?sql=SELECT%20*%20from%20%22${ResourceID}%22%20WHERE%20%22SETTLEMENT_DATE%22%20=%20%27${SettlementDate}%27%20AND%20%20%22SETTLEMENT_PERIOD%22%20=%20%27${SettlementPeriod}%27`) // Link For Testing
 
   return axios({
     method: "get",
-    url: `https://data.nationalgrideso.com/api/3/action/datastore_search_sql?sql=SELECT%20*%20from%20%22${ResourceID}%22%20WHERE%20%22SETTLEMENT_DATE%22%20=%20%272022-03-27T00:00:00%27%20AND%20%20%22SETTLEMENT_PERIOD%22%20=%20%2716%27`, // Entire Api Route 2022-03-27T00:00:00
+    url: `https://data.nationalgrideso.com/api/3/action/datastore_search_sql?sql=SELECT%20*%20from%20%22${ResourceID}%22%20WHERE%20%22SETTLEMENT_DATE%22%20=%20%27${SettlementDate}%27%20AND%20%20%22SETTLEMENT_PERIOD%22%20=%20%27${SettlementPeriod}%27`, // Entire Api Route 2022-03-27T00:00:00
     headers: { Accept: "application/json" },
     responseType: "json", // Expected Response Format
   })
     .then((Res) => {
       console.info("Solar And Wind Data Collected");
+      console.log(Res.data.result)
       return Res.data.result.records[0]; // Returns All Data From API without Axios Data
     })
     .catch((err) => {

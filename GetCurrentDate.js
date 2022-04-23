@@ -34,19 +34,21 @@ export function GetCurrentDate() {
 export function GetSettlementPeriod() {
   let Current = new Date();
 
-  let CurrentSettlementTime = `${Math.floor(
+  let CurrentSettlementPeriod = `${Math.floor(
     (Current.getHours() * 60 + Current.getMinutes()) / 30
   )}`;
 
-  return CurrentSettlementTime;
+  return CurrentSettlementPeriod;
 }
 
 export function GetSettlementDate() {
-  let Current = new Date();
 
-  let CurrentSettlementDate = `${AddLeadingZeros(
-    Current.getDate()
-  )}-${AddLeadingZeros(Current.getMonth() + 1)}-${Current.getFullYear()}`;
+    // Gets Current Date And Returns Formatted
 
+    let Current = new Date();
+
+    // Formats Current Date e.g. 2022-03-27
+    let CurrentSettlementDate = `${AddLeadingZeros(Current.getFullYear())}-${AddLeadingZeros(Current.getMonth() + 1)}-${Current.getDate()}`;
+  
   return CurrentSettlementDate;
 }

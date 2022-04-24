@@ -10,6 +10,7 @@ const ResourceID = "db6c038f-98af-4570-ab60-24d71ebd0ae5";
 export default function GetSolarWindData() {
   let SettlementDate = `${GetSettlementDate()}T00:00:00`;
   let SettlementPeriod = GetSettlementPeriod();
+  console.log(`Settlement Period: `,SettlementPeriod);
 
   return axios({
     method: "get",

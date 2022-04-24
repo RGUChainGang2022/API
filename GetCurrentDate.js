@@ -34,21 +34,40 @@ export function GetCurrentDate() {
 export function GetSettlementPeriod() {
   let Current = new Date();
 
-  let CurrentSettlementPeriod = `${Math.floor(
-    (Current.getHours() * 60 + Current.getMinutes()) / 30
-  )}`;
+  if (Current.toString().includes("British Summer Time")) {
+    let CurrentSettlementPeriod = `${
+      Math.floor((Current.getHours() * 60 + Current.getMinutes()) / 30) + 2
+    }`;
 
-  return CurrentSettlementPeriod;
+    if (CurrentSettlementPeriod > 48) {
+      if (CurrentSettlementPeriod == 49) {
+        CurrentSettlementPeriod == 1;
+      } 
+      else if (CurrentSettlementPeriod == 50) {
+        CurrentSettlementPeriod == 2;
+      };
+    }
+    return CurrentSettlementPeriod;
+  } 
+  else {
+    let CurrentSettlementPeriod = `${Math.floor(
+      (Current.getHours() * 60 + Current.getMinutes()) / 30
+    )}`;
+    console.log(CurrentSettlementPeriod);
+
+    return CurrentSettlementPeriod;
+  }
 }
 
 export function GetSettlementDate() {
+  // Gets Current Date And Returns Formatted
 
-    // Gets Current Date And Returns Formatted
+  let Current = new Date();
 
-    let Current = new Date();
+  // Formats Current Date e.g. 2022-03-27
+  let CurrentSettlementDate = `${AddLeadingZeros(
+    Current.getFullYear()
+  )}-${AddLeadingZeros(Current.getMonth() + 1)}-${Current.getDate()}`;
 
-    // Formats Current Date e.g. 2022-03-27
-    let CurrentSettlementDate = `${AddLeadingZeros(Current.getFullYear())}-${AddLeadingZeros(Current.getMonth() + 1)}-${Current.getDate()}`;
-  
   return CurrentSettlementDate;
 }

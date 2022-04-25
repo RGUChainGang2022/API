@@ -27,4 +27,4 @@ export default function GetCarbonData() {
     .catch((err) => {
       console.error(err);
     });
-}
+};

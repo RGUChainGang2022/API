@@ -1,11 +1,13 @@
 import GetCarbonData from "./getCarbonData.js";
+import { GetCurrentDate } from "./GetCurrentDate.js";
 import getFutureEnergyData from "./getSolarWindData.js";
 import SendLoad from "./SendLoad.js";
 
 const PackageData = async () => {
+  console.info(`Timestamp: ${GetCurrentDate()}`)
+  console.info(`Collecting Data...`)
   let CarbonData = await GetCarbonData();
   let SolarWindData = await getFutureEnergyData();
-
   let dataPacket = {
     TimeStamp: new Date(),
     data: {

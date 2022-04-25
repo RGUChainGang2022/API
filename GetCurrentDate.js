@@ -33,27 +33,18 @@ export function GetCurrentDate() {
 
 export function GetSettlementPeriod() {
   let Current = new Date();
+  let CurrentSettlementPeriod
 
   if (Current.toString().includes("British Summer Time")) {
-    let CurrentSettlementPeriod = `${
-      Math.floor((Current.getHours() * 60 + Current.getMinutes()) / 30) + 2
-    }`;
+    CurrentSettlementPeriod = `${Math.floor((Current.getHours() * 60 + Current.getMinutes()) / 30) + 2}`;
+    
+    if (CurrentSettlementPeriod == 49) CurrentSettlementPeriod == 1;
+    if (CurrentSettlementPeriod == 50) CurrentSettlementPeriod == 2;
 
-    if (CurrentSettlementPeriod > 48) {
-      if (CurrentSettlementPeriod == 49) {
-        CurrentSettlementPeriod == 1;
-      } 
-      else if (CurrentSettlementPeriod == 50) {
-        CurrentSettlementPeriod == 2;
-      };
-    }
     return CurrentSettlementPeriod;
   } 
-  else {
-    let CurrentSettlementPeriod = `${Math.floor(
-      (Current.getHours() * 60 + Current.getMinutes()) / 30
-    )}`;
-    console.log(CurrentSettlementPeriod);
+  else if (!Current.toString().includes("British Summer Time")){
+    CurrentSettlementPeriod = `${Math.floor((Current.getHours() * 60 + Current.getMinutes()) / 30)}`;
 
     return CurrentSettlementPeriod;
   }

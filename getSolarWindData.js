@@ -10,7 +10,7 @@ const ResourceID = "db6c038f-98af-4570-ab60-24d71ebd0ae5";
 export default function GetSolarWindData() {
   let SettlementDate = `${GetSettlementDate()}T00:00:00`;
   let SettlementPeriod = GetSettlementPeriod();
-  console.log(`Settlement Period: `,SettlementPeriod);
+  // console.log(`Settlement Period: `,SettlementPeriod);
 
   return axios({
     method: "get",
@@ -21,7 +21,8 @@ export default function GetSolarWindData() {
     .then((Res) => {
       if (Res.data.result.records[0] == []) {
         setTimeout(GetSolarWindData, 120000); // Waits 2 Minutes if data not found (This is to allow API to update for the current Settlement period)
-      } else {
+      }
+      else {
         console.info("Solar And Wind Data Collected");
         return Res.data.result.records[0]; // Returns All Data From API without Axios Data
       }

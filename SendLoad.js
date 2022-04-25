@@ -21,6 +21,7 @@ export default async function SendLoad(dataPacket) {
   })
     .then((Res) => {
       console.info("Datapacket Sent");
+      console.info(`--------------------------------\n`);
     })
     .catch((err) => {
       console.error(err);

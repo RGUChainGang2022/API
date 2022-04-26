@@ -20,7 +20,7 @@ export default async function SendLoad(dataPacket) {
     },
   })
     .then((Res) => {
-      console.info("Datapacket Sent");
+      console.info(`Datapacket Sent: Response (${Res.data})`);
       console.info(`--------------------------------\n`);
     })
     .catch((err) => {
